@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/soumadityadas/Desktop/nasa/mlruns/754324789815669954/35c9a92820534c9c94ffa545ac31719c/artifacts
+end_time: 1759646813964
+entry_point_name: ''
+experiment_id: '754324789815669954'
+lifecycle_stage: active
+run_id: 35c9a92820534c9c94ffa545ac31719c
+run_name: Train_LightGBM
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759646798207
+status: 3
+tags: []
+user_id: soumadityadas

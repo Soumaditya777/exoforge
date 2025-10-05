@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/soumadityadas/Desktop/nasa/mlruns/754324789815669954/8b9e00842450400cb1f09e5b29ad971e/artifacts
+end_time: 1759639332057
+entry_point_name: ''
+experiment_id: '754324789815669954'
+lifecycle_stage: active
+run_id: 8b9e00842450400cb1f09e5b29ad971e
+run_name: glamorous-shark-81
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759639316237
+status: 3
+tags: []
+user_id: soumadityadas

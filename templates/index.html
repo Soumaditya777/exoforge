@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExoForge AI | Transit Analysis Division</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <section id="landing-page" class="page active">
+        <div class="landing-content">
+            <h1>ExoForge AI</h1>
+            <p>Mission Control // Transit Analysis Division</p>
+            <button id="init-system-btn" class="cta-button">Initialize System</button>
+        </div>
+    </section>
+
+    <section id="main-app-page" class="page">
+        <div class="main-grid">
+            <div class="panel input-panel">
+                <h3><span class="icon">🛰️</span> System Input Parameters</h3>
+                <form id="predict-form">
+                    <div class="form-group">
+                        <h4>Planet & Transit Data</h4>
+                        <input type="number" id="period" placeholder="Orbital Period (days)" step="any" required>
+                        <input type="number" id="duration" placeholder="Transit Duration (hours)" step="any" required>
+                        <input type="number" id="depth" placeholder="Transit Depth (ppm)" step="any" required>
+                        <input type="number" id="planet_radius" placeholder="Planet Radius (Earths)" step="any" required>
+                        <input type="number" id="equilibrium_temp" placeholder="Equilibrium Temp (K)" step="any" required>
+                    </div>
+                    <div class="form-group">
+                        <h4>Star & Signal Data</h4>
+                        <input type="number" id="insolation_flux" placeholder="Insolation Flux (Earths)" step="any" required>
+                        <input type="number" id="model_snr" placeholder="Signal-to-Noise Ratio" step="any" required>
+                        <input type="number" id="stellar_temp" placeholder="Stellar Temp (K)" step="any" required>
+                        <input type="number" id="stellar_logg" placeholder="Stellar Gravity (log(g))" step="any" required>
+                        <input type="number" id="stellar_radius" placeholder="Stellar Radius (Suns)" step="any" required>
+                    </div>
+                </form>
+                <div class="button-group">
+                    <button id="config-ai-btn" class="cta-button secondary">Configure AI</button>
+                    <button id="load-preset-btn" class="cta-button secondary">Load Preset</button>
+                    <a href="/simulator" class="cta-button secondary">3D Simulator</a>
+                    <button id="run-analysis-btn" class="cta-button">Run Analysis</button>
+                </div>
+            </div>
+            <div class="panel results-panel">
+                <div id="results-placeholder">
+                    <h3>Awaiting Analysis...</h3>
+                    <p>Enter system parameters and run analysis.</p>
+                </div>
+                <div id="results-content" class="hidden">
+                    <div class="results-grid">
+                        <div class="panel verdict-display">
+                            <h3>Classification Verdict</h3>
+                            <h2 id="verdict-text"></h2>
+                            <p>Confidence: <strong id="verdict-confidence"></strong></p>
+                        </div>
+                        <div class="panel data-echo">
+                            <h3>Input Data Echo</h3>
+                            <ul id="data-echo-list"></ul>
+                        </div>
+                        <div class="panel probability-display">
+                            <h3>Prediction Probabilities</h3>
+                            <div class="chart-container">
+                                <canvas id="probability-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="panel log-display">
+                            <h3>Analysis Log</h3>
+                            <div id="analysis-log" class="log-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div id="config-modal" class="modal-container hidden">
+        <div class="modal">
+            <button class="close-btn">&times;</button>
+            <h2>Configure AI Parameters</h2>
+            <div class="performance-box"><p>Current Model Performance (v3.1)</p><strong id="model-accuracy">Accuracy: Fetching...</strong></div>
+            <div class="sliders">
+                <div class="slider-group"><label>Iterations</label><input type="range" id="iterations" min="200" max="3000" value="1000"><span id="iterations-value">1000</span></div>
+                <div class="slider-group"><label>Learning Rate</label><input type="range" id="learning_rate" min="0.01" max="0.2" step="0.01" value="0.05"><span id="learning_rate-value">0.05</span></div>
+                <div class="slider-group"><label>Tree Depth</label><input type="range" id="depth" min="4" max="12" value="8"><span id="depth-value">8</span></div>
+            </div>
+             <button id="retrain-btn" class="cta-button">Calibrate Model</button>
+        </div>
+    </div>
+
+    <div id="presets-modal" class="modal-container hidden">
+        <div class="modal">
+            <button id="close-presets-btn" class="close-btn">&times;</button>
+            <h2>Load Simulation Preset</h2>
+            <div id="presets-list" class="presets-list-container">
+                <!-- Preset items will be injected here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

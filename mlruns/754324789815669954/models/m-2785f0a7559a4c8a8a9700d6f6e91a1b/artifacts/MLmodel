@@ -1,0 +1,40 @@
+artifact_path: file:///Users/soumadityadas/Desktop/nasa/mlruns/754324789815669954/models/m-2785f0a7559a4c8a8a9700d6f6e91a1b/artifacts
+flavors:
+  catboost:
+    catboost_version: 1.2.8
+    code: null
+    data: model.cb
+    model_type: CatBoostClassifier
+    save_format: cbm
+  python_function:
+    data: model.cb
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.catboost
+    python_version: 3.11.13
+is_signature_from_type_hint: false
+mlflow_version: 3.4.0
+model_id: m-2785f0a7559a4c8a8a9700d6f6e91a1b
+model_size_bytes: 8317043
+model_uuid: m-2785f0a7559a4c8a8a9700d6f6e91a1b
+prompts: null
+run_id: 2fdb75a9ee574f55b7fce87d5617bf9d
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "double", "name": "period", "required": true}, {"type": "double",
+    "name": "duration", "required": true}, {"type": "double", "name": "depth", "required":
+    true}, {"type": "double", "name": "planet_radius", "required": true}, {"type":
+    "double", "name": "equilibrium_temp", "required": true}, {"type": "double", "name":
+    "insolation_flux", "required": true}, {"type": "double", "name": "model_snr",
+    "required": true}, {"type": "double", "name": "stellar_temp", "required": true},
+    {"type": "double", "name": "stellar_logg", "required": true}, {"type": "double",
+    "name": "stellar_radius", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1, 1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-10-05 06:32:43.825447'

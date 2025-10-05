@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/soumadityadas/Desktop/nasa/mlruns/754324789815669954/c7088acf68d34ca6af46fde4fbf8154b/artifacts
+end_time: 1759645369093
+entry_point_name: ''
+experiment_id: '754324789815669954'
+lifecycle_stage: active
+run_id: c7088acf68d34ca6af46fde4fbf8154b
+run_name: Train_RandomForest
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759645365184
+status: 3
+tags: []
+user_id: soumadityadas

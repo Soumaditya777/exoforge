@@ -1,0 +1,10 @@
+artifact_location: file:///Users/soumadityadas/Desktop/nasa/mlruns/754324789815669954/models/m-86ac107f20df498ca8db05817b897585/artifacts
+creation_timestamp: 1759647073567
+experiment_id: '754324789815669954'
+last_updated_timestamp: 1759647077250
+model_id: m-86ac107f20df498ca8db05817b897585
+model_type: null
+name: LightGBM
+source_run_id: 439650597b594485a89987e424e53f68
+status: 2
+status_message: null

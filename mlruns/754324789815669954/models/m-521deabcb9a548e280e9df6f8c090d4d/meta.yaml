@@ -1,0 +1,10 @@
+artifact_location: file:///Users/soumadityadas/Desktop/nasa/mlruns/754324789815669954/models/m-521deabcb9a548e280e9df6f8c090d4d/artifacts
+creation_timestamp: 1759646795393
+experiment_id: '754324789815669954'
+last_updated_timestamp: 1759646798198
+model_id: m-521deabcb9a548e280e9df6f8c090d4d
+model_type: null
+name: RandomForest
+source_run_id: e95c4e7ab0b5473ab5660cf740d9ba94
+status: 2
+status_message: null

@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/soumadityadas/Desktop/nasa/mlruns/754324789815669954/3da82a1d08674d549030685c3451b2c2/artifacts
+end_time: 1759646813965
+entry_point_name: ''
+experiment_id: '754324789815669954'
+lifecycle_stage: active
+run_id: 3da82a1d08674d549030685c3451b2c2
+run_name: Model_Comparison_Parent_Run
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759646782056
+status: 3
+tags: []
+user_id: soumadityadas

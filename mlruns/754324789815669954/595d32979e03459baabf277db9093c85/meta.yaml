@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/soumadityadas/Desktop/nasa/mlruns/754324789815669954/595d32979e03459baabf277db9093c85/artifacts
+end_time: 1759645365182
+entry_point_name: ''
+experiment_id: '754324789815669954'
+lifecycle_stage: active
+run_id: 595d32979e03459baabf277db9093c85
+run_name: Train_CatBoost
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759645350518
+status: 3
+tags: []
+user_id: soumadityadas

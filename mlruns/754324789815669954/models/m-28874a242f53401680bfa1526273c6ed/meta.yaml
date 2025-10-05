@@ -1,0 +1,10 @@
+artifact_location: file:///Users/soumadityadas/Desktop/nasa/mlruns/754324789815669954/models/m-28874a242f53401680bfa1526273c6ed/artifacts
+creation_timestamp: 1759640131084
+experiment_id: '754324789815669954'
+last_updated_timestamp: 1759640133736
+model_id: m-28874a242f53401680bfa1526273c6ed
+model_type: null
+name: CatBoost
+source_run_id: 22238f83481742669c94923d60158745
+status: 2
+status_message: null

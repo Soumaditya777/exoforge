@@ -1,0 +1,22 @@
+artifact_path: file:///Users/soumadityadas/Desktop/nasa/mlruns/754324789815669954/models/m-584eda9b1b8a4224809fd04f3b260526/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.13
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+mlflow_version: 3.4.0
+model_id: m-584eda9b1b8a4224809fd04f3b260526
+model_size_bytes: 22334055
+model_uuid: m-584eda9b1b8a4224809fd04f3b260526
+prompts: null
+run_id: f61c5eba44f84d3495bfa28f8bcfd845
+utc_time_created: '2025-10-05 06:50:58.321687'

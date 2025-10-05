@@ -1,0 +1,22 @@
+artifact_path: file:///Users/soumadityadas/Desktop/nasa/mlruns/754324789815669954/models/m-127215126d6449e89fbefc7389d69e72/artifacts
+flavors:
+  catboost:
+    catboost_version: 1.2.8
+    code: null
+    data: model.cb
+    model_type: CatBoostClassifier
+    save_format: cbm
+  python_function:
+    data: model.cb
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.catboost
+    python_version: 3.11.13
+mlflow_version: 3.4.0
+model_id: m-127215126d6449e89fbefc7389d69e72
+model_size_bytes: 8313968
+model_uuid: m-127215126d6449e89fbefc7389d69e72
+prompts: null
+run_id: 452420bdaf0f4b8ab090c4d889e930ee
+utc_time_created: '2025-10-05 06:46:31.659978'

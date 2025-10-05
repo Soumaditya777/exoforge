@@ -1,0 +1,21 @@
+artifact_path: file:///Users/soumadityadas/Desktop/nasa/mlruns/754324789815669954/models/m-b6a6ef0d2db44472ae8435d1a3c0eb7e/artifacts
+flavors:
+  lightgbm:
+    code: null
+    data: model.pkl
+    lgb_version: 4.6.0
+    model_class: lightgbm.sklearn.LGBMClassifier
+  python_function:
+    data: model.pkl
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.lightgbm
+    python_version: 3.11.13
+mlflow_version: 3.4.0
+model_id: m-b6a6ef0d2db44472ae8435d1a3c0eb7e
+model_size_bytes: 10414519
+model_uuid: m-b6a6ef0d2db44472ae8435d1a3c0eb7e
+prompts: null
+run_id: 385f560196f8436c869ff394e2de4062
+utc_time_created: '2025-10-05 04:55:49.972827'
