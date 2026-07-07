@@ -1,4 +1,4 @@
-# ExoForge AI 🚀
+# ExoForge AI 🚀 ( NASA Space Apps Challenge Best Mission Concept Award Recognition )
 
 ### An End-to-End MLOps Platform for Exoplanet Classification
 
