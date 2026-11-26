@@ -1,65 +1,118 @@
-# ExoForge AI 🚀 ( NASA Space Apps Challenge Best Mission Concept Award Recognition )
+# ExoForge AI
 
-### An End-to-End MLOps Platform for Exoplanet Classification
+**Exoplanet candidate classification, with an MLOps pipeline behind it.**
 
-**Team:** House Stark  
+Built for the NASA Space Apps Challenge 2025 with **Team House Stark** — awarded **Best Mission Concept**.
+Model comparison: [`model_performance/`](model_performance)
+
+ExoForge classifies Kepler and TESS signals into three classes — **confirmed exoplanet**, **candidate**, **false positive** — and exposes the model through a Flask dashboard with what-if parameter editing, a live confidence breakdown and an interactive 3D planetary view.
+
+The point of the project is not the classifier. It is the pipeline around it: every experiment is tracked in MLflow, the best run is selected programmatically, and the model the app serves is the one the pipeline chose — not the one someone remembered to copy into a folder.
 
 ---
 
-## 📖 Introduction
+## Results
 
-ExoForge AI is a full-stack web application designed to accelerate the discovery of exoplanets. It addresses the significant challenge of analyzing the vast amounts of data from NASA's Kepler and TESS missions by providing an intelligent, interactive, and automated platform for classifying potential exoplanet signals.
+Three model families were trained on the same preprocessed Kepler/TESS feature set and evaluated on a held-out split of **4,031 signals** (75/25, stratified).
 
-The platform ingests real-world astronomical data, uses a powerful machine learning model to predict classifications, and presents the results in a user-friendly dashboard. It is all powered by a professional MLOps pipeline using MLflow, ensuring that the entire workflow is reproducible, versioned, and always powered by the best-performing model.
+| Model | Accuracy | Macro F1 | Confirmed-class F1 |
+|---|---:|---:|---:|
+| **CatBoost** (selected) | **0.765** | 0.77 | 0.77 |
+| Random Forest | 0.758 | 0.76 | 0.74 |
+| LightGBM | 0.753 | 0.75 | 0.75 |
 
-<!-- Add a GIF of your app in action here! -->
-![ExoForge AI Demo](https-placeholder-for-your-demo-gif) 
+Per-class reports and confusion matrices are in [`model_performance/`](model_performance). These are research-demo results on the bundled dataset, not a claim of production transit vetting.
 
-## ✨ Key Features
+## Pipeline
 
--   **🤖 AI-Powered Analysis:** Instantly classifies exoplanet candidates into three categories: **Confirmed Exoplanet**, **Candidate**, or **False Positive** using a trained CatBoost model.
--   **📊 Interactive Dashboard:** A sleek, modern UI that provides a detailed analysis, including a classification verdict, confidence score, and a dynamic probability chart.
--   **🔬 'What-If' Scenarios:** Load real-world data presets and then freely edit the parameters to see how the AI's prediction changes in real-time.
--   **🪐 3D Solar System Simulator:** An interactive 3D visualization (built with Three.js) that displays planetary systems with data-driven tags, showing the classification status of each planet.
--   **🔧 On-the-Fly Model Calibration:** A configuration modal that allows users to adjust model hyperparameters and trigger a retraining cycle directly from the UI.
--   **🏭 Professional MLOps Pipeline:** An automated workflow that preprocesses data, trains multiple models (CatBoost, RandomForest, LightGBM), compares them using **MLflow**, and automatically saves the best-performing model for the application.
+```mermaid
+flowchart LR
+    A["Kepler / TESS CSVs"] --> B["preprocess_data.py<br/>clean, unify, feature set"]
+    B --> C["train_model.py<br/>CatBoost · RandomForest · LightGBM"]
+    C --> D[("MLflow<br/>params, metrics, artifacts")]
+    D --> E["best run selected by accuracy"]
+    E --> F["saved_models/<br/>model + scaler"]
+    F --> G["Flask app<br/>/predict · /retrain · /simulator"]
+```
 
-## 🛠️ Technology Stack
+`run_pipeline.py` executes preprocessing and training in order. Training logs each model as a nested MLflow run, then queries MLflow for the highest-accuracy run and exports its artifacts.
 
-| Backend & MLOps             | Frontend                    |
-| --------------------------- | --------------------------- |
-| ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)         | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)             |
-| ![Flask](https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white)           | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)               |
-| ![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=white)           | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black) |
-| ![Scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikit-learn&logoColor=white) | **Three.js**                |
-| **CatBoost / LightGBM**     | **Chart.js**                |
-| **MLflow**                  | **Particles.js**            |
+## What the app does
 
-## 🏗️ Project Architecture: The MLOps Pipeline
+- **Predict** (`POST /predict`) — accepts ten physical features in a fixed order, returns the class and a probability for each of the three classes.
+- **What-if analysis** — load a real candidate preset, edit parameters, and re-score without retraining.
+- **Retrain** (`POST /retrain`) — re-fits CatBoost with user-supplied `iterations`, `learning_rate` and `depth`, reports the new holdout accuracy, and replaces the served model.
+- **3D system view** — a Three.js scene (`galaxy/Animation.html`) with planet textures and classification tags.
+- **Model status** (`GET /status`) — recomputes holdout accuracy from the current model and data split.
 
-The core of ExoForge AI is its automated "model factory." The workflow is designed for reproducibility and continuous improvement.
+## Repository layout
 
-1.  **Orchestration (`run_pipeline.py`):** A master script that executes the entire pipeline with a single command.
-2.  **Data Preprocessing (`preprocess_data.py`):** Ingests and cleans raw NASA data, creating a unified dataset.
-3.  **Multi-Model Training (`train_model.py`):**
-    -   Trains `CatBoost`, `RandomForest`, and `LightGBM` on the processed data.
-    -   Uses **MLflow** to log all parameters, metrics, and visual artifacts (like confusion matrices) for each model in an organized, nested structure.
-4.  **Best Model Selection:**
-    -   The script programmatically queries MLflow to find the model with the highest accuracy.
-    -   It downloads the artifacts for this winning model.
-5.  **Model Saving:**
-    -   The script saves the **original, fully-functional model object** (e.g., the raw CatBoost model with its `.predict_proba()` method) to the `saved_models/` directory.
-    -   This ensures the Flask app always loads the best, most compatible model for predictions.
+```text
+exoforge/
+├── app.py                  # Flask API + page routes
+├── preprocess_data.py      # raw CSV → processed_combined.csv
+├── train_model.py          # multi-model training + MLflow logging
+├── run_pipeline.py         # one-command pipeline
+├── data/                   # raw and processed datasets
+├── model_performance/      # classification reports + confusion matrices
+├── saved_models/           # exported model and scaler
+├── static/ templates/      # dashboard UI
+└── galaxy/                 # Three.js simulator
+```
 
-## ⚙️ Installation & Setup
+## Run locally
 
-Follow these steps to get the project running locally.
+**Requirements:** Python 3.9+, Java not required, ~2 GB disk for dependencies.
 
-**Prerequisites:**
--   Python 3.9+
--   Git
-
-**1. Clone the Repository**
 ```bash
 git clone https://github.com/Soumaditya777/exoforge.git
 cd exoforge
+
+python3 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+**1. Reproduce the pipeline** (preprocess → train → log → select best model):
+
+```bash
+python run_pipeline.py
+```
+
+This rewrites `data/processed_combined.csv` and `saved_models/`, and creates `mlruns/`.
+
+**2. Inspect the experiments:**
+
+```bash
+mlflow ui --port 5001
+# open http://127.0.0.1:5001
+```
+
+**3. Serve the app:**
+
+```bash
+python app.py
+# open http://127.0.0.1:5000
+```
+
+If a model is missing, `/predict` returns a 500 with an explicit load error — run the pipeline first.
+
+## Data and features
+
+Inputs combine Kepler cumulative, K2 and TESS Objects of Interest tables into `processed_combined.csv`. The model consumes:
+
+`period`, `duration`, `depth`, `planet_radius`, `equilibrium_temp`, `insolation_flux`, `model_snr`, `stellar_temp`, `stellar_logg`, `stellar_radius`
+
+The feature order is fixed in `app.py` because the exported scaler and model expect it. Class mapping: `0 = false positive`, `1 = candidate`, `2 = confirmed`.
+
+## Limitations
+
+- **Research demo, not a vetting system.** 76% accuracy on a bundled, imbalanced dataset is not sufficient for scientific use, and the splits are not grouped by target to prevent leakage across related signals.
+- **No authentication or rate limiting.** `/retrain` mutates the served model, so the app should not be exposed publicly as-is.
+- `app.run(debug=True)` is for local development only.
+- The dataset and model artifacts are committed for reproducibility; in a production pipeline they belong in object storage or a model registry.
+- The 3D simulator is illustrative, not a physical simulation.
+
+## License
+
+MIT — see [`LICENSE`](LICENSE). Dataset credit belongs to NASA's Kepler, K2 and TESS missions.
